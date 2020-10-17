@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Hi-Tech Webstore Main Page</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="~{header :: header_top}" />
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" th:href="@{/index}">Hi-Tech Webstore</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div th:replace="~{navigation :: navigation(ControlPanel)}" />
+            </nav>
+            <h3>Панель управления</h3>
+            <h3>В данном разделе вы можете управлять номенклатурой каталогов.</h3>
+            <br>
+            <h3>Добавление продукта</h3>
+            <form method="GET" th:action="@{/products/add}">
+                <input type="hidden" name="category" value="Product">
+                <input type="text" name="title" placeholder="Название">
+                <input type="text" name="author" placeholder="Производитель">
+                <input type="number" name="price" placeholder="Цена">
+                <button class="btn btn-success" type="submit">Добавить товар</button>
+            </form>
+            <br>
+            <h3>Удаление продукта по артикулу</h3>
+            <form method="GET" th:action="@{/products/delete}">
+                <input type="number" name="id" placeholder="Артикул товара">
+                <button class="btn btn-success" type="submit">Удалить товар</button>
+            </form>
+            <br>
+            <h3>Добавление книги</h3>
+            <form method="GET" th:action="@{/books/add}">
+                <input type="hidden" name="category" value="Book">
+                <input type="text" name="title" placeholder="Название книги">
+                <input type="text" name="author" placeholder="Автор книги">
+                <input type="number" name="price" placeholder="Цена">
+                <button class="btn btn-success" type="submit">Добавить книгу</button>
+            </form>
+            <br>
+            <h3>Удаление книги по артикулу</h3>
+            <form method="GET" th:action="@{/books/delete}">
+                <input type="number" name="id" placeholder="Артикул книги">
+                <button class="btn btn-success" type="submit">Удалить книгу</button>
+            </form>
+        </div>
+    </body>
+</html>

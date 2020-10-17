@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Hi-Tech Webstore Main Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div th:fragment="header_top">
+            <br><span th:align="center"><h1>Добро пожаловать в Hi-Tech Webstore!</h1></span><br>
+        </div>
+        <div th:fragment="header_footer">
+            <br><span th:align="center"><h6>Выберите категорию интересующих вас товаров.</h6></span><br>
+        </div>
+        <div th:fragment="products_filter">
+            <span th:align="left"><h6>Вы можете скорректировать список продуктов, воспользовавшись фильтром ниже:</h6></span>
+        </div>
+        <div th:fragment="books_filter">
+            <span th:align="left"><h6>Вы можете скорректировать список книг, воспользовавшись фильтром ниже:</h6></span>
+        </div>
+    </body>
+</html>

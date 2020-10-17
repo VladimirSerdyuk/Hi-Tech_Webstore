@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Hi-Tech Webstore Main Page</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="~{header :: header_top}" />
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" th:href="@{/index}">Hi-Tech Webstore</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div th:replace="~{navigation :: navigation(Products)}" />
+            </nav>
+            <br>
+            <div th:replace="~{header :: products_filter}" />
+            <form th:action="@{/products}" method="GET">
+                <input name="min_price" type="number" placeholder="Минимальная цена" th:value="*{minPrice}">
+                <input name="max_price" type="number" placeholder="Максимальная цена" th:value="*{maxPrice}">
+                <input name="title" type="text" placeholder="Наименование" th:value="*{title}">
+                <input name="author" type="text" placeholder="Производитель" th:value="*{author}">
+                <button class="btn btn-primary" type="submit">Применить</button>
+            </form>
+            <br>
+            <table class="table table-striped" th:if="${products.size() > 0}">
+                <thead>
+                <tr>
+                    <th scope="col">Артикул</th>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">Производитель</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}"/>
+                    <td th:text="${product.title}"/>
+                    <td th:text="${product.author}"/>
+                    <td th:text="${product.price}"/>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/cart/add/?id=' + ${product.id}}">Добавить в корзину</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <span th:unless="${products.size() > 0}">Ни одного продукта не добавлено в БД.</span>
+        </div>
+    </body>
+</html>

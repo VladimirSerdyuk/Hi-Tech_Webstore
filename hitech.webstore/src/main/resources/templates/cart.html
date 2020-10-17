@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Hi-Tech Webstore Main Page</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="~{header :: header_top}" />
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" th:href="@{/index}">Hi-Tech Webstore</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div th:replace="~{navigation :: navigation(Cart)}" />
+            </nav>
+            <h1>Корзина</h1>
+            <table class="table table-striped" th:if="${cartItems.size() > 0}">
+                <thead>
+                <tr>
+                    <th scope="col">Артикул</th>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">Цена за единицу</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Общая стоимость</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="oi : ${cartItems}">
+                    <td th:text="${oi.id}"/>
+                    <td th:text="${oi.item.title}"/>
+                    <td th:text="${oi.pricePerItem}"/>
+                    <td class="col-lg-2">
+                        <div class="input-group">
+                            <form class="input-group-btn" method="GET" th:action="@{'/cart/quantity/decrement/?id=' + ${oi.item.id}}">
+                                <button type="submit" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </form>
+                            <input type="text" id="quantity" name="quantity" class="form-control input-number" th:value="*{oi.quantity}" min="1" max="1000">
+                            <form class="input-group-btn" method="GET" th:action="@{'/cart/quantity/increment/?id=' + ${oi.item.id}}">
+                                <button type="submit" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    <td th:text="${oi.price}"/>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/cart/delete/?id=' + ${oi.id}}">Удалить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/orders/create}" class="btn btn-success" th:if="${cartItems.size() > 0}">Оформить заказ</a>
+            <span th:unless="${cartItems.size() > 0}">Корзина пуста</span>
+        </div>
+    </body>
+</html>
